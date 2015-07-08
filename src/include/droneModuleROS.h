@@ -99,7 +99,7 @@ public:
 private:
     std_srvs::Empty emptySrv;
     ros::ServiceServer resetServerSrv;
-    ros::ServiceClient resetClientSrv;
+  //  ros::ServiceClient resetClientSrv;
     bool resetServCall(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response);
 protected:
     virtual bool resetValues();
@@ -112,7 +112,7 @@ private:
     //std_srvs::Empty emptySrv; //Compartido. Ya puesto antes
     bool startServCall(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response);
     ros::ServiceServer startServerSrv;
-    ros::ServiceClient startClientSrv;
+   // ros::ServiceClient startClientSrv;
 protected:
     virtual bool startVal();
 
@@ -124,7 +124,7 @@ private:
     //std_srvs::Empty emptySrv; //Compartido. Ya puesto antes
     bool stopServCall(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response);
     ros::ServiceServer stopServerSrv;
-    ros::ServiceClient stopClientSrv;
+  //  ros::ServiceClient stopClientSrv;
 protected:
     virtual bool stopVal();
 
@@ -141,7 +141,7 @@ protected:
 private:
     std_msgs::Bool isStartedMsg;
     ros::Publisher isStartedPub;
-    ros::Subscriber isStartedSub;
+  //  ros::Subscriber isStartedSub;
 
 
 
