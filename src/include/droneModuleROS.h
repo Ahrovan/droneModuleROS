@@ -27,7 +27,8 @@
 //std::ostringstream
 #include <sstream>
 
-
+//Thread
+#include <pthread.h>
 
 
 
@@ -42,7 +43,7 @@
 
 //Topics
 #include "std_msgs/Bool.h"
-
+#include <droneMsgsROS/AliveSignal.h>
 
 namespace droneModule
 {
@@ -51,6 +52,19 @@ namespace droneModule
         active, //Writes
         monitor //Reads
     };
+        typedef enum
+    {
+        FirstValue,
+        Initializing,
+        Running,
+        Sleeping,
+        Waiting,
+        Stopping,
+        Recovering,
+        Started,
+        NotStarted,
+        LastValue
+    } State;
 //    enum droneModuleLoggerTypes
 //    {
 //        non_logger, // logs data
@@ -167,7 +181,20 @@ public:
     void sleep();
     inline void set_moduleRate(double moduleRateIn) { moduleRate = moduleRateIn; }
 
-
+    //Thread
+private:
+  /*!******************************************************************************************************************
+   * \brief This function has the only purpose to serve as the thread execution point.
+   * \param [in] argument Function which has to be exacuted by the thread.
+   *******************************************************************************************************************/
+  static void * threadRun(void * argument);
+  //!  This function implements the thread's logic.
+  void threadAlgorithm();
+  pthread_t t1; //!< Thread handler.
+  ros::Publisher state_pub;
+  std::string hostname; 
+  droneMsgsROS::AliveSignal state_message; //!< Message of type state.
+  
     // droneLogger
 //protected:
     // pointer to logging function

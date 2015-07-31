@@ -22,6 +22,10 @@ Module::Module(droneModule::droneModuleTypes droneModuleTypeIn, double moduleRat
   //, droneModuleLoggerType(droneModuleLoggerTypesIn)
 {
     droneModuleType=droneModuleTypeIn;
+    char buf[32];
+    gethostname(buf,sizeof buf);  
+    hostname.append(buf);
+
     init();
 
     ros::param::get("~stackPath",stackPath);
@@ -64,7 +68,9 @@ void Module::open(ros::NodeHandle & nIn, std::string moduleName) //moduleName de
 
         //Topics
         isStartedPub=n.advertise<std_msgs::Bool>(moduleName+"/isStarted", 1, true);
+        state_pub = n.advertise<droneMsgsROS::AliveSignal>("process_alive_signal", 2);
 
+        pthread_create( &t1, NULL, &Module::threadRun,this);
 //    }
 
 //    if(droneModuleType==droneModule::monitor)
@@ -94,6 +100,33 @@ void Module::open(ros::NodeHandle & nIn, std::string moduleName) //moduleName de
 //    return;
 //}
 
+void * Module::threadRun(void * argument)
+{
+  ((Module *) argument)->threadAlgorithm();
+  return NULL;
+}
+
+void Module::threadAlgorithm()
+{
+    printf("starting threadAlgorithm\n");
+  ros::Rate r(1);
+  while(ros::ok())
+  {
+    state_message.header.stamp = ros::Time::now();
+    state_message.hostname = hostname;
+    state_message.process_name = ros::this_node::getName();
+    if(moduleStarted)
+    {
+        state_message.current_state.state = (int)droneModule::Started;
+    }
+    else
+    {
+        state_message.current_state.state = (int)droneModule::NotStarted;
+    }
+    state_pub.publish(state_message);
+    r.sleep();
+  }
+}
 
 void Module::init()
 {
