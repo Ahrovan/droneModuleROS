@@ -109,7 +109,7 @@ void * Module::threadRun(void * argument)
 void Module::threadAlgorithm()
 {
     printf("starting threadAlgorithm\n");
-  ros::Rate r(1);
+  ros::Rate r(10);
   while(ros::ok())
   {
     state_message.header.stamp = ros::Time::now();
