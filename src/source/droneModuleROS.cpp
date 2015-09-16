@@ -67,7 +67,7 @@ void Module::open(ros::NodeHandle & nIn, std::string moduleName) //moduleName de
         //isStartedServerSrv=n.advertiseService(moduleName+"/isStarted",&DroneModule::isStartedServCall,this);
 
         //Topics
-        isStartedPub=n.advertise<std_msgs::Bool>(moduleName+"/isStarted", 1, true);
+        //isStartedPub=n.advertise<std_msgs::Bool>(moduleName+"/isStarted", 1, true);
         state_pub = n.advertise<droneMsgsROS::AliveSignal>("process_alive_signal", 2);
 
         pthread_create( &t1, NULL, &Module::threadRun,this);
@@ -144,7 +144,7 @@ void Module::close()
 
 
     //publicar
-    isStartedPublish();
+    //isStartedPublish();
 
     return;
 }
@@ -297,23 +297,23 @@ bool DroneModule::isStartedServCall(droneModule::isStarted::Request& request, dr
 */
 
 
-void Module::isStartedSubCallback(const std_msgs::Bool::ConstPtr &msg)
-{
-    moduleStarted=(bool)msg->data;
-    return;
-}
+//void Module::isStartedSubCallback(const std_msgs::Bool::ConstPtr &msg)
+//{
+//    moduleStarted=(bool)msg->data;
+//    return;
+//}
 
 
-void Module::isStartedPublish()
-{
-//    if ( (droneModuleType==droneModule::active) && (droneModuleOpened) )
-    if ( droneModuleOpened )
-    {
-        isStartedMsg.data=moduleStarted;
-        isStartedPub.publish(isStartedMsg);
-    }
-    return;
-}
+//void Module::isStartedPublish()
+//{
+////    if ( (droneModuleType==droneModule::active) && (droneModuleOpened) )
+//    if ( droneModuleOpened )
+//    {
+//        isStartedMsg.data=moduleStarted;
+//        isStartedPub.publish(isStartedMsg);
+//    }
+//    return;
+//}
 
 
 
@@ -322,7 +322,7 @@ void Module::isStartedPublish()
 bool Module::run()
 {
     //Publish status
-    isStartedPublish();
+    //isStartedPublish();
     //Do other staff
     if (!moduleStarted)
     {

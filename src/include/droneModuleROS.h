@@ -146,15 +146,15 @@ protected:
     //is Started
 public:
     bool isStarted();
-private:
-    //bool isStartedServCall(droneModule::isStarted::Request& request, droneModule::isStarted::Response& response);
-    void isStartedSubCallback(const std_msgs::Bool::ConstPtr &msg);
-protected:
-    void isStartedPublish();
-    //Topics
-private:
-    std_msgs::Bool isStartedMsg;
-    ros::Publisher isStartedPub;
+//private:
+//    //bool isStartedServCall(droneModule::isStarted::Request& request, droneModule::isStarted::Response& response);
+//    void isStartedSubCallback(const std_msgs::Bool::ConstPtr &msg);
+//protected:
+//    void isStartedPublish();
+//    //Topics
+//private:
+//    std_msgs::Bool isStartedMsg;
+//    ros::Publisher isStartedPub;
   //  ros::Subscriber isStartedSub;
 
 
