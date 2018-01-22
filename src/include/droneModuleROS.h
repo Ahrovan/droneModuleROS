@@ -161,7 +161,7 @@ public:
 
 public:
 //    Module(droneModule::droneModuleTypes droneModuleTypeIn=droneModule::active, double moduleRateIn=0.0, droneModule::droneModuleLoggerTypes droneModuleLoggerTypesIn = droneModule::non_logger);
-        Module(droneModule::droneModuleTypes droneModuleTypeIn=droneModule::active, double moduleRateIn=0.0);
+        Module(droneModule::droneModuleTypes droneModuleTypeIn=droneModule::active, double moduleRateIn=10.0);
     ~Module();
 
     virtual void open(ros::NodeHandle & nIn, std::string moduleName=""); //moduleName deprecated
@@ -233,7 +233,7 @@ protected:
 public:
 
     //DroneModule(droneModule::droneModuleTypes droneModuleTypeIn=droneModule::active, double moduleRateIn=0.0, droneModule::droneModuleLoggerTypes droneModuleLoggerTypesIn = droneModule::non_logger);
-    DroneModule(droneModule::droneModuleTypes droneModuleTypeIn=droneModule::active, double moduleRateIn=0.0);
+    DroneModule(droneModule::droneModuleTypes droneModuleTypeIn=droneModule::active, double moduleRateIn=10.0);
     ~DroneModule();
 
 
